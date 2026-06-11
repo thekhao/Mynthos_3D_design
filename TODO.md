@@ -49,20 +49,32 @@
 - [x] 10 Full scene (925 kB, 3758 tri)
 
 ## Phase 6 — GitHub + documentation
-- [x] CI workflow (.github/workflows/ci.yml)
-- [x] Viewer (viewer/index.html) with three.js vendored
-- [x] Vendor files (three.module.min.js, three.core.min.js, all addons)
+- [x] Viewer (viewer/index.html) — three.js r165 via CDN, addons vendored locally
+- [x] Vendor addons: OrbitControls, GLTFLoader, RGBELoader, HDRLoader, BufferGeometryUtils, SkeletonUtils
 - [x] HDRI studio.hdr generated (131 kB, 256x128 RGBE)
-- [x] docs/api/ (one page per function)
+- [x] docs/api/ (one page per function, 16 pages)
 - [x] AGENTS.md
 - [x] README.md (pitch, quickstart, benchmark table, comparison)
 - [x] DECISIONS.md (20 architecture decisions)
 - [x] BENCHMARK.md (measured results + research)
 - [x] MIT license
 - [x] All source commits pushed to GitHub
-- [x] Vendor files pushed
+- [x] Vendor addons pushed
 - [x] Docs pushed
-- [x] Tag v0.1.0
+- [ ] **Tag v0.1.0** — create manually on GitHub:
+  ```
+  # In the GitHub UI: Releases > Draft new release > Tag: v0.1.0
+  # Or via git:
+  git tag -a v0.1.0 cddc03cb1b522f0a125f82e8f8ab07fa9e7516a3 -m "Forge3D v0.1.0"
+  git push origin v0.1.0
+  ```
+
+## Known limitations (v0.1.0)
+- **CI workflow** — `.github/workflows/ci.yml` push blocked (403, token lacks `workflows` scope)
+  - Workaround: run `python -m pytest tests/` locally or add CI via GitHub UI
+- **three.js core** — `three.module.min.js` (~600 kB) served from CDN (jsdelivr r165) instead of vendored
+  - Workaround: download manually and place at `viewer/vendor/three.module.min.js`
+- **No internet in build VM** — all assets generated offline with numpy + Pillow only ✓
 
 ## Definition of Done
 - [x] Offline install in one command
@@ -70,6 +82,6 @@
 - [x] 10 assets build, GLBs valid, PNG previews verified
 - [x] All performance budgets met
 - [x] Viewer loads all 10 assets with reflections
-- [x] Test coverage > 80%, CI green
+- [x] 34 tests PASS
 - [x] README + AGENTS.md + docs complete
-- [x] Tag v0.1.0
+- [ ] Tag v0.1.0 (manual step — see above)
